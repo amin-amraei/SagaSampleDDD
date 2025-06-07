@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(OrderSagaDbContext))]
-    [Migration("20250606160906_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250607042531_firstinit")]
+    partial class firstinit
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,6 +46,23 @@ namespace Infrastructure.Migrations
                     b.HasKey("CorrelationId");
 
                     b.ToTable("OrderState");
+                });
+
+            modelBuilder.Entity("Domain.Order", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("InventoryReserved")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("PaymentCompleted")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Order");
                 });
 #pragma warning restore 612, 618
         }

@@ -44,6 +44,23 @@ namespace Infrastructure.Migrations
 
                     b.ToTable("OrderState");
                 });
+
+            modelBuilder.Entity("Domain.Order", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("InventoryReserved")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("PaymentCompleted")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Order");
+                });
 #pragma warning restore 612, 618
         }
     }
